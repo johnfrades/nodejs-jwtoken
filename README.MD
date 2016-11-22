@@ -1,0 +1,1 @@
+Simple setup of JSON Web Token on NodeJS
