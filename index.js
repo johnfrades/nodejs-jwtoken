@@ -8,8 +8,8 @@ var express = require('express');
 var mongoose = require('mongoose');
 var app = express();
 
+var PORT = process.env.PORT || 3000;
 
-// Use body-parser to get POST requests for API use
 // Use body-parser to get POST requests for API use
 app.use(bodyParser.urlencoded({ extended: false }));  
 app.use(bodyParser.json());
@@ -66,8 +66,10 @@ apiRoutes.post('/authenticate', function(req, res) {
         if (isMatch && !err) {
           // Create token if the password matched and no error was thrown
           var token = jwt.sign(user, config.secret, {
-            expiresIn: 60 // in seconds
+            expiresIn: 1000 // in seconds
           });
+          console.log(token);
+          // res.redirect('/api/dashboard');
           res.json({ success: true, token: 'JWT ' + token });
         } else {
           res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
@@ -87,10 +89,10 @@ app.use('/api', apiRoutes);
 
 // Home route. We'll end up changing this to our main front end index later.
 app.get('/', function(req, res) {  
-  res.send('Relax. We will put the home page here later.');
+  res.render('homepage.ejs');
 });
 
 
-app.listen('3000', function(req, res){
-	console.log('Server started at port 3000');
+app.listen(PORT, function(req, res){
+	console.log('Server started at port ' + PORT);
 });

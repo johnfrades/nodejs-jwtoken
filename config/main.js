@@ -1,4 +1,4 @@
 module.exports = {  
-'secret': 'putsomethingtopsecrethere',  
-'database': 'mongodb://localhost/thetokens'  
+'secret': 'muffins forever',  
+'database': 'mongodb://admin:admin@ds161487.mlab.com:61487/token'  
 };
