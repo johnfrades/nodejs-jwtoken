@@ -9,6 +9,11 @@ var UserSchema = new mongoose.Schema({
     unique: true,    
     required: true
   },
+  studentid: {
+    type: Number,
+    unique: true,
+    required: true
+  },
   password: {
     type: String,
     required: true
@@ -21,12 +26,18 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  linkedin: String,
-  portfolio: String,
+  linkedin: {
+    type: String,
+    lowercase: true
+  },
+  portfolio: {
+    type: String,
+    lowercase: true
+  },
+  address: String,
   folder: String,
   authkey: String,
-  
-
+  token: String
 });
 
 // Saves the user's password hashed (plain text password storage is not good)
