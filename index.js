@@ -8,6 +8,9 @@ var express = require('express');
 var mongoose = require('mongoose');
 var app = express();
 var cors = require('cors');
+var officegen = require('officegen');
+var async = require('async');
+var nodemailer = require('nodemailer');
 
 var PORT = process.env.PORT || 3000;
 
@@ -106,3 +109,8 @@ app.get('/', function(req, res) {
 app.listen(PORT, function(req, res){
 	console.log('Server started at port ' + PORT);
 });
+
+
+
+//Generate random string/number
+//Math.random().toString(36).substr(2, length)
