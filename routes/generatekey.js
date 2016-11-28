@@ -6,7 +6,7 @@ var Authkey = require('../app/models/authkey');
 router.post('/getkey', function(req, res){
 	var newAuthkey = {
 		studentid: req.body.studentid,
-		authkey: Math.random().toString(36).substr(2, 10),
+		authkey: Math.random().toString(36).substr(2, 5).toUpperCase(),
 		used: false
 	}
 

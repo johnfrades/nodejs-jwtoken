@@ -1,15 +1,33 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('passport');
 var User = require('../app/models/users');
-var Authkey = require('../app/models/authkey'); 
-var jwt = require('jsonwebtoken');
-var config = require('../config/main');
+var Authkey = require('../app/models/authkey');
+
+
+
+router.post('/authreg', function(req, res){
+	var authData = {
+		authkey: req.body.authcode,
+		studentid: req.body.studentid,
+	}
+
+	Authkey.findOne(authData, function(err, validKey){
+		if(err){
+			res.send('error');
+		} else if(!validKey){
+			res.send('error');
+		} else {
+			res.json({
+				success: true,
+				data: validKey
+			});
+		}
+	});
+})
 
 
 // Register new users
 router.post('/register', function(req, res) {  
-  console.log(req.body);
   if(!req.body.email || !req.body.password) {
     res.json({ success: false, message: 'Please enter email and password.' });
   } else {
@@ -37,43 +55,5 @@ router.post('/register', function(req, res) {
     });
   }
 });
-
-
-
-// Authenticate the user and get a JSON Web Token to include in the header of future requests.
-router.post('/authenticate', function(req, res) {  
-  User.findOne({
-    email: req.body.email
-  }, function(err, user) {
-
-    if (!user) {
-      res.send({ success: false, message: 'Authentication failed. User not found.' });
-    } else {
-      // Check if password matches
-      user.comparePassword(req.body.password, function(err, isMatch) {
-        if (isMatch && !err) {
-          // Create token if the password matched and no error was thrown
-          var token = jwt.sign(user, config.secret, {
-            expiresIn: 1000 // in seconds
-          });
-          
-          user.token = token;
-          user.save();
-          console.log(user);
-          // res.redirect('/api/dashboard');
-          res.json({ success: true, token: 'JWT ' + token });
-        } else {
-          res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
-        }
-      });
-    }
-  });
-});
-
-// Protect dashboard route with JWT
-router.get('/dashboard', passport.authenticate('jwt', { session: false }), function(req, res) {  
-  res.send('It worked! User id is: ' + req.user._id + '.');
-});
-
 
 module.exports = router;

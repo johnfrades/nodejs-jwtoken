@@ -14,9 +14,9 @@ var nodemailer = require('nodemailer');
 
 
 //Routes
-var registerRoute = require('./routes/register');
+var tokenAuthRoute = require('./routes/tokenAuth');
 var authkeyRoute = require('./routes/generatekey');
-
+var registerRoute = require('./routes/register');
 
 
 
@@ -51,8 +51,9 @@ app.use(cors());
 
 
 // Set url for API group routes
-app.use(registerRoute);  
+app.use(tokenAuthRoute);  
 app.use(authkeyRoute);
+app.use(registerRoute);
 
 // Home route. We'll end up changing this to our main front end index later.
 app.get('/', function(req, res) {  
