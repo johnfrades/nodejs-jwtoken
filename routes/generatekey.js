@@ -6,7 +6,7 @@ var Authkey = require('../app/models/authkey');
 router.post('/getkey', function(req, res){
 	var newAuthkey = {
 		studentid: req.body.studentid,
-		authkey: Math.random().toString(36).substr(2, 5).toUpperCase(),
+		authcode: Math.random().toString(36).substr(2, 5).toUpperCase(),
 		used: false
 	}
 
@@ -21,7 +21,7 @@ router.post('/getkey', function(req, res){
 				return res.json({
 					success: true,
 					studentid: newKey.studentid,
-					authkey: newKey.authkey
+					authcode: newKey.authcode
 				});
 			}
 		 });
