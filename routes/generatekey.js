@@ -18,7 +18,7 @@ router.post('/getkey', function(req, res){
 			if(err){
 				console.log(err);
 			} else {
-				res.json({
+				return res.json({
 					success: true,
 					studentid: newKey.studentid,
 					authkey: newKey.authkey
