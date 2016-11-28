@@ -18,7 +18,11 @@ router.post('/getkey', function(req, res){
 			if(err){
 				console.log(err);
 			} else {
-				res.send('Hey student# ' + newKey.studentid + ', your key is '  + newKey.authkey);
+				res.json({
+					success: true,
+					studentid: newKey.studentid,
+					authkey: newKey.authkey
+				});
 			}
 		 });
 		}
