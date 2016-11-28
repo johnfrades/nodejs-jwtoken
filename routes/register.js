@@ -18,10 +18,8 @@ router.post('/authreg', function(req, res){
 			res.send('error');
 		} else {
 			res.json({
-				data: {
 					success: true,
-					info: validKey
-				}
+					data: validKey
 			});
 		}
 	});
