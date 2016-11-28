@@ -7,7 +7,7 @@ var Authkey = require('../app/models/authkey');
 
 router.post('/authreg', function(req, res){
 	var authData = {
-		authkey: req.body.authcode,
+		authcode: req.body.authcode,
 		studentid: req.body.studentid,
 	}
 

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var AuthKeySchema = new mongoose.Schema({
-	authkey: String,
+	authcode: String,
 	studentid: Number,
 	used: Boolean
 });
