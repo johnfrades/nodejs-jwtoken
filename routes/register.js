@@ -28,33 +28,57 @@ router.post('/authreg', function(req, res){
 
 // Register new users
 router.post('/register', function(req, res) {  
+  var checkIfValid = {
+    authcode: req.body.authcode,
+    studentid: req.body.studentid
+  }
+
+  Authkey.findOne(checkIfValid, function(err, foundKey){
+    if(err){
+      console.log(err);
+    } else if(!foundKey){
+      res.json({
+        success: false,
+        message: 'No StudentId/Wrong authentication code.'
+      });
+    } else if(foundKey){
+        var newUser = new User({
+        email: req.body.email,
+        studentid: req.body.studentid,
+        password: req.body.password,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        linkedin: req.body.linkedin,
+        portfolio: req.body.portfolio,
+        address: req.body.address,
+        authcode: req.body.authcode
+      });
+
+
+        newUser.save(function(err) {
+          if (err) {
+            return res.json({ 
+              success: false, 
+              message: 'Error! Try again!'});
+          }
+          res.json({ 
+            success: true, 
+            data: newUser 
+          });
+      });
+    }
+  });
+
+
+
+
   if(!req.body.email || !req.body.password) {
     res.json({ success: false, message: 'Please enter email and password.' });
   } else {
-    var newUser = new User({
-      email: req.body.email,
-      studentid: req.body.studentid,
-      password: req.body.password,
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      linkedin: req.body.linkedin,
-      portfolio: req.body.portfolio,
-      address: req.body.address,
-      authcode: req.body.authcode
-    });
+    
 
     // Attempt to save the user
-    newUser.save(function(err) {
-      if (err) {
-        return res.json({ 
-          success: false, 
-          message: 'Error! Try again!'});
-      }
-      res.json({ 
-        success: true, 
-        data: newUser 
-      });
-    });
+
   }
 });
 
