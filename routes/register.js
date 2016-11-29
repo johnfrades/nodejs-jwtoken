@@ -39,7 +39,8 @@ router.post('/register', function(req, res) {
       lastname: req.body.lastname,
       linkedin: req.body.linkedin,
       portfolio: req.body.portfolio,
-      address: req.body.address
+      address: req.body.address,
+      authcode: req.body.authcode
     });
 
     // Attempt to save the user
@@ -51,7 +52,8 @@ router.post('/register', function(req, res) {
       }
       res.json({ 
         success: true, 
-        message: 'Successfully created an account!' });
+        data: newUser 
+      });
     });
   }
 });
