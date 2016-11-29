@@ -26,8 +26,9 @@ router.post('/authenticate', function(req, res) {
             expiresIn: 1000 // in seconds
           });
           
-          // res.redirect('/api/dashboard');
+          
           res.json({ success: true, token: 'JWT ' + token });
+          res.redirect('/api/dashboard');
         } else {
           res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
         }
