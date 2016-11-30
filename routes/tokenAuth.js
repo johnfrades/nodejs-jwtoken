@@ -27,7 +27,10 @@ router.post('/authenticate', function(req, res) {
           });
           
           
-          res.json({ success: true, token: 'JWT ' + token });
+          res.json({ 
+            success: true, 
+            token: 'JWT ' + token,
+            data: user });
         } else {
           res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
         }
