@@ -10,3 +10,9 @@ Nov 28 <br>
 
 Dec 1 <br>
 -- Added new route for adding cv (cvsave.js) <br>
+
+Dec 2 <br>
+-- Added 2 POST routes for saving CV experience and getting updated CV experience to pass in the data to angularjs (table) <br>
+
+
+- John Lois Frades
