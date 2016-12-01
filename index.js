@@ -17,6 +17,7 @@ var nodemailer = require('nodemailer');
 var tokenAuthRoute = require('./routes/tokenAuth');
 var authkeyRoute = require('./routes/generatekey');
 var registerRoute = require('./routes/register');
+var cvRoute = require('./routes/cvsave');
 
 
 
@@ -54,6 +55,9 @@ app.use(cors());
 app.use(tokenAuthRoute);  
 app.use(authkeyRoute);
 app.use(registerRoute);
+app.use(cvRoute);
+
+
 
 // Home route. We'll end up changing this to our main front end index later.
 app.get('/', function(req, res) {  

@@ -7,3 +7,6 @@ Nov 27 <br>
 
 Nov 28 <br>
 -- added generate auth key.. <br>
+
+Dec 1 <br>
+-- Added new route for adding cv (cvsave.js) <br>
