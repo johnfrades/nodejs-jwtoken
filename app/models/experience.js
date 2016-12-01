@@ -7,10 +7,8 @@ var ExperienceSchema = new mongoose.Schema({
 	company: String,
 	city: String,
 	country: String,
-	startmonth: String,
-	startyear: String,
-	endmonth: String,
-	endyear: String
+	startdate: String,
+	enddate: String
 });
 
 
