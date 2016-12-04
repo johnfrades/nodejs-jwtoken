@@ -17,6 +17,10 @@ router.post('/authreg', function(req, res){
 		} else if(!validKey){
 			res.send('error');
 		} else {
+      console.log(validKey);
+      validKey.used = true;
+      validKey.save();
+      console.log(validKey);
 			res.json({
 					success: true,
 					data: validKey

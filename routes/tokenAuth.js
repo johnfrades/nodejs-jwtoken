@@ -12,7 +12,7 @@ var config = require('../config/main');
 // Authenticate the user and get a JSON Web Token to include in the header of future requests.
 router.post('/authenticate', function(req, res) {  
   User.findOne({
-    email: req.body.email
+    studentid: req.body.studentid
   }, function(err, user) {
 
     if (!user) {

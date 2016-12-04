@@ -68,8 +68,3 @@ app.get('/', function(req, res) {
 app.listen(PORT, function(req, res){
 	console.log('Server started at port ' + PORT);
 });
-
-
-
-//Generate random string/number
-//Math.random().toString(36).substr(2, length)
