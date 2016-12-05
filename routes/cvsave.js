@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var CV = require('../app/models/cv');
 var Experience = require('../app/models/experience');
+var Education = require('../app/models/education');
 var moment = require('moment');
 
 
@@ -95,6 +96,54 @@ router.post('/getcvexperience', function(req, res){
 		}
 	});
 });
+
+
+router.post('/cveducation', function(req, res){
+
+	var eduData = {
+		category: req.body.category,
+		school: req.body.school,
+		city: req.body.city,
+		country: req.body.country,
+		startdate: moment(req.body.startdate).format('MMMM Do YYYY'),
+		enddate: moment(req.body.enddate).format('MMMM Do YYYY')
+	}
+
+	CV.findById(req.body.id, function(err, theCV){
+		console.log(theCV);
+		if(err){
+			console.log(err);
+		} else {
+			Education.create(eduData, function(err, newEducation){
+				if(err){
+					console.log(err);
+				} else {
+					theCV.education.push(newEducation);
+					theCV.save();
+					res.json({
+						success: true,
+						info: newEducation
+					});
+				}
+			});
+		}
+	});
+});
+
+router.post('/getcveducation', function(req, res){
+	CV.findById(req.body.id).populate('education').exec(function(err, theCV){
+		if(err){
+			console.log(err);
+		} else {
+			res.json({
+				success: true,
+				info: theCV
+			});
+		}
+	});
+});
+
+
 
 
 

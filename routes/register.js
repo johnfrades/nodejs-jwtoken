@@ -13,21 +13,20 @@ router.post('/authreg', function(req, res){
 
 	Authkey.findOne(authData, function(err, validKey){
 		if(err){
+      console.log(err);
 			res.send('error');
 		} else if(!validKey){
-			res.send('error');
-		} else {
-      console.log(validKey);
-      validKey.used = true;
-      validKey.save();
-      console.log(validKey);
+      console.log('no key/user found');
+		} else if(validKey.used === true){
+      console.log('Key already used!');
+    } else {
 			res.json({
 					success: true,
 					data: validKey
 			});
 		}
 	});
-})
+});
 
 
 // Register new users
@@ -53,7 +52,7 @@ router.post('/register', function(req, res) {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         linkedin: req.body.linkedin,
-        portfolio: req.body.portfolio,
+        website: req.body.website,
         address: req.body.address,
         authcode: req.body.authcode
       });
@@ -65,11 +64,15 @@ router.post('/register', function(req, res) {
               success: false, 
               message: 'Error! Try again!'});
           }
+
+          foundKey.used = true;
+          foundKey.save();
           res.json({ 
             success: true, 
             data: newUser 
           });
       });
+
     }
   });
 

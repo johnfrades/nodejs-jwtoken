@@ -30,7 +30,7 @@ var UserSchema = new mongoose.Schema({
     type: String,
     lowercase: true
   },
-  portfolio: {
+  website: {
     type: String,
     lowercase: true
   },

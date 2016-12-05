@@ -6,10 +6,8 @@ var EducationSchema = new mongoose.Schema({
 	school: String,
 	city: String,
 	country: String,
-	startmonth: String,
-	startyear: String,
-	endmonth: String,
-	endyear: String
+	startdate: String,
+	enddate: String
 });
 
 module.exports = mongoose.model('Education', EducationSchema);
