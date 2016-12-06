@@ -34,6 +34,7 @@ var UserSchema = new mongoose.Schema({
     type: String,
     lowercase: true
   },
+  phone: Number,
   address: String,
   folder: String,
   authkey: String,

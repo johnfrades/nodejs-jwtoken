@@ -31,7 +31,7 @@ var CVSchema = new mongoose.Schema({
 	skills: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Skills'
+			ref: 'Skill'
 		}
 	]
 });

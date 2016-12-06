@@ -21,5 +21,10 @@ Dec 5 <br>
 -- added 2 POST routes for saving CV education and getting updated CV education to pass in the data to angularjs (table) <br>
 -- Changed the '/authenticate' route, from finding the user by EMAIL to STUDENTID <br>
 
+Dec 6 <br>
+-- Added a Skill model schema <br>
+-- Added 2 POST routes for adding a skill on the database and querying the database for updated skill and pass into the AngularJS through res.json <br>
+-- Added PHONE value on USER model schema <br>
+-- Added a POST route for updating and getting the PROFILE of the student <br>
 
 - John Lois Frades

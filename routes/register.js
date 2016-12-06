@@ -45,20 +45,28 @@ router.post('/register', function(req, res) {
         message: 'No StudentId/Wrong authentication code.'
       });
     } else if(foundKey){
-        var newUser = new User({
-        email: req.body.email,
-        studentid: req.body.studentid,
-        password: req.body.password,
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        linkedin: req.body.linkedin,
-        website: req.body.website,
-        address: req.body.address,
-        authcode: req.body.authcode
+      User.findOne({email: req.body.email}, function(err, foundEmail){
+        if(foundEmail){
+          console.log('Email already used!');
+          res.json({
+            success: false,
+            message: 'Email already used!'
+          });
+        } else {
+          var newUser = new User({
+            email: req.body.email,
+            studentid: req.body.studentid,
+            password: req.body.password,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            linkedin: req.body.linkedin,
+            website: req.body.website,
+            address: req.body.address,
+            phone: req.body.phone,
+            authcode: req.body.authcode
       });
 
-
-        newUser.save(function(err) {
+          newUser.save(function(err) {
           if (err) {
             return res.json({ 
               success: false, 
@@ -72,6 +80,11 @@ router.post('/register', function(req, res) {
             data: newUser 
           });
       });
+
+
+
+        }
+      })
 
     }
   });

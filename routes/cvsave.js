@@ -1,13 +1,35 @@
 var mongoose = require('mongoose');
 var express = require('express');
 var router = express.Router();
+var User = require('../app/models/users');
 var CV = require('../app/models/cv');
 var Experience = require('../app/models/experience');
 var Education = require('../app/models/education');
+var Skill = require('../app/models/skill');
 var moment = require('moment');
 
 
+router.post('/updatemyprofile', function(req, res){
 
+	var updateProfile = {
+		address: req.body.address,
+		phone: req.body.phone,
+		email: req.body.email,
+		linkedin: req.body.linkedin,
+		website: req.body.website
+	}
+
+	User.findByIdAndUpdate(req.body.id, updateProfile, {new: true}, function(err, theUser){
+		if(err){
+			console.log(err);
+		} else {
+			res.json({
+				success: true,
+				info: theUser
+			});
+		}
+	});
+});
 
 
 router.post('/cvname', function(req, res){
@@ -144,7 +166,45 @@ router.post('/getcveducation', function(req, res){
 });
 
 
+router.post('/cvskill', function(req, res){
+	var skillData = {
+		name: req.body.name,
+		description: req.body.description
+	}
 
+	CV.findById(req.body.id, function(err, theCV){
+		if(err){
+			console.log(err);
+		} else {
+			Skill.create(skillData, function(err, newSkill){
+				if(err){
+					console.log(err);
+				} else {
+					theCV.skills.push(newSkill);
+					theCV.save();
+					res.json({
+						success: true,
+						info: newSkill
+					});
+				}
+			});
+		}
+	});
+});
+
+router.post('/getcvskill', function(req, res){
+	CV.findById(req.body.id).populate('skills').exec(function(err, theCV){
+		if(err){
+			console.log(err);
+		} else {
+			console.log(theCV);
+			res.json({
+				success: true,
+				info: theCV
+			});
+		}
+	});
+});
 
 
 
