@@ -12,7 +12,9 @@ router.post('/getkey', function(req, res){
 
 	Authkey.findOne({studentid: req.body.studentid}, function(err, studentExist){
 		if(studentExist){
-			res.send('Error! Student already registered!');
+			res.json({
+				success: false,
+			});
 		} else if(studentExist === null) {
 			Authkey.create(newAuthkey, function(err, newKey){
 			if(err){

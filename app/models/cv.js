@@ -8,12 +8,10 @@ var CVSchema = new mongoose.Schema({
 	firstname: String,
 	lastname: String,
 	address: String,
-	suburb: String,
-	city: String,
-	postcode: Number,
 	phone: Number,
 	website: String,
 	email: String,
+	linkedin: String,
 	personalstatement: String,
 	experience:[
 		{

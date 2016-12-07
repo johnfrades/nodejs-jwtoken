@@ -27,4 +27,8 @@ Dec 6 <br>
 -- Added PHONE value on USER model schema <br>
 -- Added a POST route for updating and getting the PROFILE of the student <br>
 
+Dec 7 <br>
+-- reworked the authentication and register. changed the error from 'console.log' to 'res.json' <br>
+-- Added back the Personal Info post route <br>
+
 - John Lois Frades

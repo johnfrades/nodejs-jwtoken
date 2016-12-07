@@ -32,43 +32,86 @@ router.post('/updatemyprofile', function(req, res){
 });
 
 
+//BIND the profile of user to the CV
+
+
+
 router.post('/cvname', function(req, res){
 	var cvName = {
 		cvname: req.body.cvname
 	}
 
-	CV.create(cvName, function(err, newCV){
+	User.findById(req.body.id, function(err, theUser){
 		if(err){
 			console.log(err);
-		} else {
-			res.json({
-				success: true,
-				info: newCV
+		} else if(theUser){
+			CV.create(cvName, function(err, newCV){
+				if(err){
+					console.log(err);
+				} else {
+					newCV.firstname = theUser.firstname;
+					newCV.lastname = theUser.lastname;
+					newCV.address = theUser.address;
+					newCV.phone = theUser.phone;
+					newCV.email = theUser.email;
+					newCV.linkedin = theUser.linkedin;
+					newCV.website = theUser.website;
+					newCV.save();
+					res.json({
+						success: true,
+						firstname: theUser.firstname,
+						lastname: theUser.lastname,
+						address: theUser.address,
+						phone: theUser.phone,
+						email: theUser.email,
+						linkedin: theUser.linkedin,
+						website: theUser.website,
+						info: newCV
+					});
+				}
 			});
 		}
 	});
 });
 
-router.post('/cvpersonalinfo', function(req, res){
-  var piData = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    phone: req.body.phone,
-    email: req.body.email,
-    linkedin: req.body.linkedin,
-    website: req.body.website,
-    address: req.body.address,
-    postcode: req.body.postcode
-  }
 
-  CV.findByIdAndUpdate(req.body.id, piData, {new: true}, function(err, updateCV){
-    if(err){
-      console.log(err);
-    } else {
-      // res.redirect('/cvs/' + req.params.cvid);
-      res.send(updateCV);
-    }
-  });
+router.post('/cvpersonalinfo', function(req, res){
+	var cvPersonalInfo = {
+		firstname: req.body.firstname,
+		lastname: req.body.lastname,
+		address: req.body.address,
+		phone: req.body.phone,
+		email: req.body.email,
+		website: req.body.website,
+		linkedin: req.body.linkedin
+	}
+
+
+	CV.findByIdAndUpdate(req.body.id, cvPersonalInfo, {new: true}, function(err, theCV){
+		if(err){
+			console.log(err);
+		} else {
+			res.json({
+				success: true
+			});
+		}
+	});
+});
+
+router.post('/cvpersonalstatement', function(req, res){
+
+	CV.findById(req.body.id, function(err, theCV){
+		if(err){
+			console.log(err);
+		} else {
+			theCV.personalstatement = req.body.personalStatement;
+			theCV.save();
+			res.json({
+				success: true,
+				info: theCV
+			});
+		}
+	});
 });
 
 

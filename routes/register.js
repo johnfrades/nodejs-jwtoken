@@ -16,9 +16,13 @@ router.post('/authreg', function(req, res){
       console.log(err);
 			res.send('error');
 		} else if(!validKey){
-      console.log('no key/user found');
+      res.json({
+        success: false
+      });
 		} else if(validKey.used === true){
-      console.log('Key already used!');
+      res.json({
+        sucess: false
+      });
     } else {
 			res.json({
 					success: true,
@@ -84,7 +88,7 @@ router.post('/register', function(req, res) {
 
 
         }
-      })
+      });
 
     }
   });

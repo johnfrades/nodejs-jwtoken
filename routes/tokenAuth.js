@@ -14,10 +14,6 @@ router.post('/authenticate', function(req, res) {
   User.findOne({
     studentid: req.body.studentid
   }, function(err, user) {
-
-    if (!user) {
-      res.send({ success: false, message: 'Authentication failed. User not found.' });
-    } else {
       // Check if password matches
       user.comparePassword(req.body.password, function(err, isMatch) {
         if (isMatch && !err) {
@@ -25,17 +21,16 @@ router.post('/authenticate', function(req, res) {
           var token = jwt.sign(user, config.secret, {
             expiresIn: 1000 // in seconds
           });
-          
-          
+
           res.json({ 
             success: true, 
             token: 'JWT ' + token,
             data: user });
+
         } else {
-          res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
+          res.json({ success: false });
         }
       });
-    }
   });
 });
 
